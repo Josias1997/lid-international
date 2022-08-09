@@ -45,13 +45,7 @@
                                     <li><a href="{{ route ('perspectives') }}">Perspectives</a></li>
                                     <li><a href="{{ route ('blog') }}">Blog</a></li>
                                     <li ><a href="{{ route ('programs') }}">Programs</a></li>
-                                    <li class="has-dropdown">
-                                        <a href="#">About</a>
-                                        <ul class="submenu">
-                                            <li><a href="{{ route('about') }}">Our Story</a></li>
-                                            <li><a href="{{ route('about.burkina') }}">Burkina Faso</a></li>
-                                        </ul>
-                                    </li>
+                                    <li ><a href="{{ route ('about') }}">Our Story</a></li>
                                     <li>
                                         <a href="{{ route('communities') }}">Our Communities</a>
                                         <!--<ul class="submenu">
@@ -156,6 +150,7 @@
                         <div class="footer-link">
                             <h4>Quick Links</h4>
                             <ul class="ft-link">
+                                <li><a href="{{ route ('donation') }}">Donate</a></li>
                                 <li><a href="{{ route ('contact') }}">Contact</a></li>
                                 <li><a href="{{ route ('about') }}">Our Story</a></li> 
                                 <li><a href="{{ route ('communities') }}">Our Community</a></li>   
@@ -180,9 +175,9 @@
                         <div class="footer-link">
                             <h4>Contacts</h4>
                             <ul class="ft-link">
-                                <li>Email: <a href="mailto:{{ setting('site.first_email') }}">{{ setting('site.first_email') }}</a></li>
-                                <li>Email: <a href="mailto:{{ setting('site.second_email') }}">{{ setting('site.second_email') }}</a></li>
-                                <li>Email: <a href="mailto:{{ setting('site.third_email') }}">{{ setting('site.third_email') }}</a></li>
+                                <li><a href="mailto:{{ setting('site.first_email') }}">{{ setting('site.first_email') }}</a></li>
+                                <li><a href="mailto:{{ setting('site.second_email') }}">{{ setting('site.second_email') }}</a></li>
+                                <li><a href="mailto:{{ setting('site.third_email') }}">{{ setting('site.third_email') }}</a></li>
                                 <li>Phone: <a href="tel:{{ setting('site.phone_number') }}">{{ setting('site.phone_number') }}</a></li>
                             </ul>
                             <div class="social-share-inner mt--20">

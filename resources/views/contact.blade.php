@@ -76,7 +76,7 @@
                             <span>Call us directly:</span><a class="link im-hover" href="phone">{{ setting('site.phone_number') }}</a>
                         </div>
                         <div class="im_address mt--5">
-                            <span>Contact Email:</span><a class="link im-hover" href="email">example@gmail.com</a>
+                            <span>Contact Email:</span><a class="link im-hover" href="email">contact@lidinternational.org</a>
                         </div>
                     </div>
                     @if($message && $message === "success")
@@ -119,7 +119,7 @@
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2">
                     <div class="thumbnail mb_md--30 mb_sm--30">
-                        <img src="/images/logo/logo.jpg" alt="imroz">
+                        <img src="/images/logo.jpg" alt="imroz">
                     </div>
                 </div>
             </div>

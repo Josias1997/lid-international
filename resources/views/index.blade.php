@@ -1,14 +1,19 @@
 @extends('layouts.app')
 @section('content')
     <!-- Start Slider Area -->
+    @if($message && $message === "success")
+        <div class="alert alert-success">Message sent successfully</div>
+    @elseif($message !== null)
+        <div class="alert alert-danger">{{ $message }}</div>
+    @endif
     <div class="slider-activation rn-slick-dot rn-slick-activation dot-light mb--0" data-slick-options='{
         "slidesToShow": 1, 
         "slidesToScroll": 1, 
         "arrows": true, 
         "fade": true,
-        "infinite": true,
         "easing": "fade",
-        "infinite": true,
+        "autoplay": true,
+        "autoplaySpeed": 2000,
         "adaptiveHeight": true,
         "dots": true 
     }'>
@@ -54,6 +59,26 @@
     <!-- Start Services area -->
     <div class="service-area ptb--120 bg_color--1">
         <div class="container">
+            <h1 class="title">About Us</h1>
+            <div class="about-area ptb--120 bg_color--1">
+                <div class="about-wrapper">
+                    <div class="container">
+                        <div class="row row--35 align-items-center">
+                            <div class="col-lg-5 col-md-12">
+                                <div class="thumbnail"><img class="w-100" src="/images/team.jpg" alt="About Images"></div>
+                            </div>
+                            <div class="col-lg-7 col-md-12">
+                                <div class="about-inner inner">
+                                    <div class="section-title">
+                                        <h2 class="title">Our Story</h2>
+                                            {!! setting('site.our_story') !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row service-main-wrapper">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                     <a href="{{ route('perspectives') }}">
@@ -93,6 +118,54 @@
                 </div>
             </div>
         </div>
+            <div class="rn-team-area ptb--120 bg_color--1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center mb--25 mb_sm--0">
+                        <h2 class="title">Team</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <!-- Single team Area -->
+                    @foreach ($team_members as $team_member)
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <a href="{{ route('perspectives') }}">
+                            <div class="team team-style--bottom">
+                                <div class="thumbnail"><img src="/storage/{{ $team_member->image }}" alt="Blog Images"></div>
+                                <div class="content">
+                                    <h4 class="title">{{ $team_member->position }}</h4>
+                                    <p class="designation">{{ $team_member->name }}</p>
+                                </div>
+                                
+                                <!--<ul class="social-icon">
+                                    <li>
+                                        <a href="#">
+                                            <i data-feather="facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i data-feather="linkedin"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i data-feather="twitter"></i>
+                                        </a>
+                                    </li>
+                                </ul>-->
+                            </div>
+                            </a>
+                        </div>
+                    @endforeach
+                    <!-- End Single Member area -->
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     <!-- End Services area -->
 
@@ -119,43 +192,14 @@
                                 </p>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="about-us-list">
-                                        <h5 class="title"><a href="{{ route('programs') }}">Education Program</a></h5>
-                                        <p></p>
+                                @foreach($programs as $program)
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                        <div class="about-us-list">
+                                            <h5 class="title"><a href="{{ route('get-program', $program->id) }}">{{ $program->name }}</a></h5>
+                                            <p></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="about-us-list">
-                                        <h5 class="title"><a href="{{ route('programs') }}">Heath Program</a></h5>
-                                        <p></p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="about-us-list">
-                                        <h5 class="title"><a href="{{ route('programs') }}">Wash Program</a></h5>
-                                        <p></p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="about-us-list">
-                                        <h5 class="title"><a href="{{ route('programs') }}">Job booster Program</a></h5>
-                                        <p></p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="about-us-list">
-                                        <h5 class="title"><a href="{{ route('programs') }}">Evangelization Program</a></h5>
-                                        <p></p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="about-us-list">
-                                        <h5 class="title"><a href="{{ route('programs') }}">Relief aid</a></h5>
-                                        <p></p>
-                                    </div>
-                                </div>
-
+                                @endforeach
                             </div>
                             <!--<div class="purchase-btn mt--50"><a class="btn-transparent" href="about.html">WHY WE'RE
                                     DIFFERNT
@@ -169,52 +213,6 @@
         </div>
     </div>
     <!-- End Corporate business area -->
-
-    <!-- Start Counter Up Section -->
-    <div class="counterup-area pb--80 pt--40 bg_image bg_image--17 theme-text-white" data-black-overlay="3">
-        <div class="container">
-            <div class="row mt--30">
-                <div class="im_single_counterup col-lg-3 col-md-4 col-sm-6 col-12">
-                    <div class="im_counterup">
-                        <div class="inner">
-                            <a href="{{ route('programs') }}">
-                                <h2 ><img src="/storage/{{ setting('site.education') }}" alt=""/></h2>
-                            </a>
-                            <!--<p class="description">Staticfied Customers</p>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="im_single_counterup col-lg-3 col-md-4 col-sm-6 col-12">
-                    <div class="im_counterup">
-                        <div class="inner">
-                            <a href="{{ route('programs') }}">
-                                <h2 ><img src="/storage/{{ setting('site.health') }}" alt=""/></h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="im_single_counterup col-lg-3 col-md-4 col-sm-6 col-12">
-                    <div class="im_counterup">
-                        <div class="inner">
-                            <a href="{{ route('programs') }}">
-                                <h2 ><img src="/storage/{{ setting('site.wash') }}" alt=""/></h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="im_single_counterup col-lg-3 col-md-4 col-sm-6 col-12">
-                    <div class="im_counterup">
-                        <div class="inner">
-                            <a href="{{ route('programs') }}">
-                                <h2 ><img src="/storage/{{ setting('site.evangelization') }}" alt=""/></h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Counter Up Section -->
 
     <!-- Start About Area -->
     <!--<div class="rn-about-area ptb--120 bg_color--5">
@@ -311,214 +309,139 @@
     </div>-->
     <!-- End About Area -->
 
-    <!-- Start Team Area -->
-    <div class="rn-team-area ptb--120 bg_color--1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title text-center mb--25 mb_sm--0">
-                        <h2 class="title">Team</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row">
-                    <!-- Single team Area -->
-                    @foreach ($team_members as $team_member)
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <a href="{{ route('perspectives') }}">
-                            <div class="team team-style--bottom">
-                                <div class="thumbnail"><img src="/storage/{{ $team_member->image }}" alt="Blog Images"></div>
-                                <div class="content">
-                                    <h4 class="title">{{ $team_member->position }}</h4>
-                                    <p class="designation">{{ $team_member->name }}</p>
-                                </div>
-                                
-                                <!--<ul class="social-icon">
-                                    <li>
-                                        <a href="#">
-                                            <i data-feather="facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i data-feather="linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i data-feather="twitter"></i>
-                                        </a>
-                                    </li>
-                                </ul>-->
-                            </div>
-                            </a>
-                        </div>
-                    @endforeach
-                    <!-- End Single Member area -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Team Area -->
-
     <!-- Start Pricing Area -->
-    <!--<div class="rn-pricing-table-area ptb--120 bg_color--5">
+    <div class="rn-pricing-table-area ptb--120 bg_color--5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title service-style--3 text-center mb--25 mb_sm--0"><span class="subtitle">Our
-                            Budget Plan</span>
-                        <h2 class="title">Pricing Plan</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, <br> but the majority have
-                            suffered alteration.</p>
+                    <div class="section-title service-style--3 text-center mb--25 mb_sm--0"><span class="subtitle">Ways to donate</span>
+                        <h2 class="title">Donations</h2>
+                        <p>There are many ways to donate.</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12 mt--30">
-                    <div class="rn-pricing">
-                        <div class="pricing-table-inner">
-                            <div class="pricing-header">
-                                <h4 class="title">Free</h4>
-                                <div class="pricing"><span class="price">$45</span><span class="subtitle">USD Per
-                                        Month</span></div>
-                            </div>
-                            <div class="pricing-body">
-                                <ul class="list-style--1">
-                                    <li><i data-feather="check"></i> 5 PPC Campaigns</li>
-                                    <li><i data-feather="check"></i> Digital Marketing</li>
-                                    <li><i data-feather="check"></i> Marketing Agency</li>
-                                    <li><i data-feather="check"></i> Seo Friendly</li>
-                                    <li><i data-feather="check"></i> UI/UX designs</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-footer"><a class="rn-btn" href="#pricing">Purchase Now</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12 mt--30">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-lg-6 col-md-6 col-12 mt--30">
                     <div class="rn-pricing active">
                         <div class="pricing-table-inner">
                             <div class="pricing-header">
-                                <h4 class="title">Business</h4>
-                                <div class="pricing"><span class="price">$45</span><span class="subtitle">USD Per
-                                        Month</span></div>
+                                <h4 class="title">Make a donation</h4>
                             </div>
                             <div class="pricing-body">
                                 <ul class="list-style--1">
-                                    <li><i data-feather="check"></i> 5 PPC Campaigns</li>
-                                    <li><i data-feather="check"></i> Digital Marketing</li>
-                                    <li><i data-feather="check"></i> Marketing Agency</li>
-                                    <li><i data-feather="check"></i> Seo Friendly</li>
-                                    <li><i data-feather="check"></i> UI/UX designs</li>
+                                    <li><i data-feather="check"></i>Make a donation</li>
                                 </ul>
                             </div>
-                            <div class="pricing-footer"><a class="rn-btn" href="#pricing">Purchase Now</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12 mt--30">
-                    <div class="rn-pricing">
-                        <div class="pricing-table-inner">
-                            <div class="pricing-header">
-                                <h4 class="title">Advanced</h4>
-                                <div class="pricing"><span class="price">$99</span><span class="subtitle">USD Per
-                                        Month</span></div>
-                            </div>
-                            <div class="pricing-body">
-                                <ul class="list-style--1">
-                                    <li><i data-feather="check"></i> 5 PPC Campaigns</li>
-                                    <li><i data-feather="check"></i> Digital Marketing</li>
-                                    <li><i data-feather="check"></i> Marketing Agency</li>
-                                    <li><i data-feather="check"></i> Seo Friendly</li>
-                                    <li><i data-feather="check"></i> UI/UX designs</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-footer"><a class="rn-btn" href="#pricing">Purchase Now</a></div>
+                            <div class="pricing-footer"><a class="rn-btn" href="{{ route('donation') }}">Proceed</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>-->
-    <!-- End Pricing Area -->
-
-    <!-- Rn Brand Area Start -->
-    <div class="rn-brand-area ptb--120 bg_color--1">
-        <!--<div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title text-center mb--25 mb_sm--0"><span class="subtitle">Top clients</span>
-                        <h2 class="title">Clients Say What About Us</h2>
-                    </div>
-                </div>-->
-            
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 mt--30">
-                    <div class="thumbnail position-relative"><img class="w-100" src="/images/blank.jpg" alt="About Images">
-                        <a href="{{ setting('site.youtube_video_url') }}" class="play__btn video-popup position-top-center theme-color"><span
-                                class="play-icon"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--<div class="row pt--120">
-                <div class="col-lg-12">
-                    <ul class="brand-style-2">
-                        <li><img src="/images/brand/brand-01.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-02.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-03.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-05.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-04.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-08.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-06.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-09.png" alt="Logo Images"></li>
-                        <li><img src="/images/brand/brand-07.png" alt="Logo Images"></li>
-                    </ul>
-                </div>
-            </div>-->
         </div>
     </div>
-    <!-- Rn Brand Area End -->
-
-    <!-- Rn News Area Start -->
-    <!-- Start Team Area -->
-    <div class="rn-team-area ptb--120 bg_color--1">
+    <!-- End Pricing Area -->
+<div class="rn-contact-top-area ptb--120 bg_color--5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title text-center mb--25 mb_sm--0">
-                        <h2 class="title">Articles</h2>
+                    <div class="section-title mb--30 text-center"><span class="subtitle">Our contact address</span>
+                        <h2 class="title">Quick Contact Address</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="row">
-                    <!-- Single team Area -->
-                    @foreach($articles as $article)
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt--30">
-                            <div class="im_box">
-                                <div class="thumbnail"><a href="{{ route('blog.details', ['id' => $article->id]) }}"><img class="w-100" src="/storage/{{ $article->image }}" alt="{{ $article->title }}"></a></div>
-                                <div class="content">
-                                    <div class="inner">
-                                        <div class="content_heading">
-                                            
-                                            <h4 class="title"><a href="{{ route('blog.details', ['id' => $article->id]) }}">{{ $article->title }}</a></h4>
-                                        </div>
-                                        <div class="content_footer"><a class="rn-btn btn-opacity" href="{{ route('blog.details', ['id' => $article->id]) }}">Read
-                                                More</a></div>
-                                    </div><a class="transparent_link" href="{{ route('blog.details', ['id' => $article->id]) }}"></a>
-                                </div>
-                            </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="rn-address">
+                        <div class="icon">
+                            <i data-feather="headphones"></i>
+                        </div>
+                        <div class="inner">
+                            <h4 class="title">Contact Phone Number</h4>
+                            <p><a href="tel:{{ setting('site.phone_number') }}">{{ setting('site.phone_number') }}</a></p>
                         </div>
                     </div>
-                    @endforeach
-                    <!-- End Single Member area -->
-
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="rn-address">
+                        <div class="icon">
+                            <i data-feather="mail"></i>
+                        </div>
+                        <div class="inner">
+                            <h4 class="title">Our Email Address</h4>
+                            <p><a href="mailto:{{ setting('site.first_email') }}">{{ setting('site.first_email') }}</a></p>
+                            <p><a href="mailto:{{ setting('site.second_email') }}">{{ setting('site.second_email') }}</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="rn-address">
+                        <div class="icon">
+                            <i data-feather="map-pin"></i>
+                        </div>
+                        <div class="inner">
+                            <h4 class="title">Our Location</h4>
+                            <p>{{ setting('site.address') }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Rn News Area End -->
+    <!-- adderss ENd -->
+        <div class="rn-contact-page ptb--120 bg_color--1">
+        <div class="container">
+            <div class="row row--35 align-items-start">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class="section-title text-left mb--50">
+                        <h2 class="title">Contact</h2>
+                        <div class="im_address">
+                            <span>Call us directly:</span><a class="link im-hover" href="phone">{{ setting('site.phone_number') }}</a>
+                        </div>
+                        <div class="im_address mt--5">
+                            <span>Contact Email:</span><a class="link im-hover" href="email">contact@lidinternational.org</a>
+                        </div>
+                    </div>
+                    <form id="contact-form" method="POST" action="{{ route('contact') }}" class="rwt-dynamic-form row contact-form--1">
+                        {{ csrf_field() }}
+                        <input type="hidden" id="home" name="home" value="home" />
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="name"></label>
+                                <input name="name" id="name" type="text" placeholder="Your Name">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="phone"></label>
+                                <input type="text" name="phone" id="phone" placeholder="Your Phone">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email"></label>
+                                <input name="email" id="email" type="email" placeholder="Your Email">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="message"></label>
+                                <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-submit">
+                                <button type="submit" id="submit" class="btn-default btn-block btn-primary">Submit Now</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <div class="thumbnail mb_md--30 mb_sm--30">
+                        <img src="/images/logo.jpg" alt="imroz">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact area End -->
 @endsection
